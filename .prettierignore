@@ -5,10 +5,13 @@ dist
 dist-ssr
 lib
 es
-components/index.tsx
+
+# auto gen
+.husky
 
 # eslint
 *.eslintcache
+components/index.tsx
 
 # local env files
 *.local
@@ -25,8 +28,7 @@ yarn-error.log*
 
 
 package-lock.json
-yarn-lock.json
-*.tgz
+yarn.lock
 
 # Editor directories and files
 .idea
