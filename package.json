@@ -1,0 +1,27 @@
+{
+  "name": "@wont/tools",
+  "version": "1.0.0",
+  "description": "Tools to Build library for vue2、vue3、react&lt;17、utils，using gulp、babel、rollup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wont-org/tools.git"
+  },
+  "keywords": [
+    "tools",
+    "build tools",
+    "build library",
+    "library",
+    "react",
+    "vue"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wont-org/tools/issues"
+  },
+  "homepage": "https://github.com/wont-org/tools#readme"
+}
