@@ -23,5 +23,13 @@
   "bugs": {
     "url": "https://github.com/wont-org/tools/issues"
   },
-  "homepage": "https://github.com/wont-org/tools#readme"
+  "homepage": "https://github.com/wont-org/tools#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "husky": "^6.0.0"
+  },
+  "hooks": {
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  }
 }
