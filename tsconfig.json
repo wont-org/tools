@@ -7,9 +7,7 @@
         // "config/*.ts",
         // "index.ts",
     ],
-    "exclude": [
-        "node_modules",
-    ],
+    "exclude": ["node_modules"],
     "compilerOptions": {
         "resolveJsonModule": true, // 允许引入json
         "target": "esnext",
