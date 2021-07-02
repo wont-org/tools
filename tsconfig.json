@@ -7,7 +7,7 @@
         // "config/*.ts",
         // "index.ts",
     ],
-    "exclude": ["node_modules"],
+    "exclude": ["node_modules", "lib"],
     "compilerOptions": {
         "resolveJsonModule": true, // 允许引入json
         "target": "esnext",
@@ -15,7 +15,7 @@
         "declaration": true,
         "removeComments": false,
         /* Strict Type-Checking Options */
-        "strict": true /* Enable all strict type-checking options. */,
+        "strict": false /* Enable all strict type-checking options. */,
         "noImplicitAny": false,
         // output
         "outDir": "lib",
