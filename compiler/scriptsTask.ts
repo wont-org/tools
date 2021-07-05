@@ -12,7 +12,6 @@ function cssInjection(content) {
 
 function compile(babelEnv: ModuleType, destDir: string) {
     const babelConfig = getBabelConfig(babelEnv, 'vue3')
-    // babelConfig.babelrc = false
 
     // console.log('scripts', ENTRY.scripts)
 

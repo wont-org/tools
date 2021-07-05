@@ -55,7 +55,7 @@ export const getBabelConfig = (module: ModuleType, frame: Frame) => {
     const babelConfig = {
         presets,
         plugins,
-        // babelrc: false,
+        babelrc: false,
     }
     // console.log('module, babelConfig :>> ', module, babelConfig)
     return babelConfig

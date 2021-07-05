@@ -3,7 +3,6 @@ import less from 'gulp-less'
 import autoprefixer from 'gulp-autoprefixer'
 import cssnano from 'gulp-cssnano'
 import through2 from 'through2'
-// import { Transform } from 'stream'
 import { OUTPUT, ENTRY } from '../utils/const'
 import { getDirName, getFileName } from '../utils/fs'
 

@@ -12,7 +12,7 @@ program
     .command('compileVue3')
     .description('Compile a vue3 ui components library')
     .action(() => {
-        runTask('compileVue3UiLib')
+        runTask('compileVue3')
     })
 
 program.parse()
