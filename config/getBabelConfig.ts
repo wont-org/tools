@@ -1,8 +1,18 @@
-export type ModuleType = 'esm' | 'cjs'
-export type Frame = 'vue2' | 'vue3' | 'react16' | 'func'
+import { ARGV, UI_LIB } from '../utils/const'
+import { Frame, ModuleType } from '../utils/types'
 
 export const getBabelConfig = (module: ModuleType, frame: Frame) => {
-    const antd = [
+    const deps = (ARGV['-d'] || ARGV['--depends'] || []) as string[]
+    let useAntd = false
+    for (const dep of deps) {
+        if (UI_LIB.includes(dep)) {
+            if (dep === 'antd') {
+                useAntd = true
+                break
+            }
+        }
+    }
+    const antdVue3 = [
         'import',
         {
             libraryName: 'ant-design-vue',
@@ -24,7 +34,6 @@ export const getBabelConfig = (module: ModuleType, frame: Frame) => {
     const presets = [presetEnv, '@babel/preset-typescript']
 
     const plugins: any[] = [
-        antd,
         [
             '@babel/plugin-transform-runtime',
             {
@@ -35,6 +44,9 @@ export const getBabelConfig = (module: ModuleType, frame: Frame) => {
         ],
     ]
     if (frame === 'vue3') {
+        if (useAntd) {
+            plugins.push(antdVue3)
+        }
         // https://github.com/vuejs/jsx-next
         const vue3Plugins = [
             '@vue/babel-plugin-jsx',

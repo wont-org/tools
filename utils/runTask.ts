@@ -20,6 +20,9 @@ export function runTask(taskName) {
     const taskInstance = task(taskName)
     if (taskInstance === undefined) {
         emit('task_not_found', metadata)
+        log.error({
+            text: `${taskName} not found`,
+        })
         return
     }
     const start = process.hrtime()
