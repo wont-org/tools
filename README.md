@@ -49,7 +49,7 @@ wont-tools compile vue3 -d antd
 
 -   [x] vue3+tsx ui library
 -   [ ] vue2 ui library, is it still necessary?
--   [] react<17 ui library
+-   [x] react<17 ui library
 -   [ ] func ui library
 -   [ ] npm version command
 -   [ ] tag command
