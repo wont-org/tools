@@ -37,7 +37,7 @@ export const getBabelConfig = (module: ModuleType, frame: Frame) => {
         [
             '@babel/plugin-transform-runtime',
             {
-                helpers: false,
+                // helpers: false,
                 // No longer need, see detail https://babeljs.io/docs/en/babel-plugin-transform-runtime#useesmodules
                 // useESModules: true,
             },

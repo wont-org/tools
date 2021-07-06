@@ -43,11 +43,11 @@ function compileESM() {
 function compileCJS() {
     if (!FRAME.list.includes(FRAME.name as any)) {
         log.error({
-            text: `compileESM, expect oneOf ${FRAME.list}, but got ${FRAME.name}`,
+            text: `compileCJS, expect oneOf ${FRAME.list}, but got ${FRAME.name}`,
         })
         process.exit(1)
     }
-    return compile('cjs', FRAME.name as Frame, OUTPUT.es)
+    return compile('cjs', FRAME.name as Frame, OUTPUT.cjs)
 }
 
 async function genTypes() {
