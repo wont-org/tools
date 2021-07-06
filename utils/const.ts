@@ -14,43 +14,44 @@ export const UI_LIB = ['antd']
 export const ARGV = parseArgvOpt()
 export const CWD = process.cwd()
 
-const entryDirName = ARGV['-e'] || ARGV['--entry'] || 'components'
-const entryDirPath = join(CWD, `./${entryDirName}`)
+// compile library root dir name
+const ENTRY_DIR_NAME = ARGV['-e'] || ARGV['--entry'] || 'components'
+const ENTRY_DIR_PATH = join(CWD, `./${ENTRY_DIR_NAME}`)
 
-if (!existsSync(entryDirPath)) {
+if (!existsSync(ENTRY_DIR_PATH)) {
     log.error({
-        text: `Compile entry dirname ${entryDirName} is not exist!!!`,
+        text: `Compile entry dirname ${ENTRY_DIR_NAME} is not exist!!!`,
     })
     process.exit(1)
 }
 
-const uiIndex = join(CWD, `./${entryDirName}/index.tsx`)
-const funcIndex = join(CWD, `./${entryDirName}/index.ts`)
+const UI_INDEX = join(CWD, `./${ENTRY_DIR_NAME}/index.tsx`)
+const FUNC_INDEX = join(CWD, `./${ENTRY_DIR_NAME}/index.ts`)
 
 export const DESC = '// 此文件是脚本自动生成，请勿在此修改 \n\n'
 
-export const FILES = {
-    less: glob.sync(join(CWD, `./${entryDirName}/**/*.less`)) || [],
-    uiIndex,
-    tsx: glob.sync(join(CWD, `./${entryDirName}/**/index.tsx`), {
-        ignore: [
-            // resolve('../components/**/*.stories.tsx'),
-            // resolve('../components/**/__tests__/*.test.tsx'),
-            uiIndex,
-            funcIndex,
-        ],
-    }),
+export const CONFIG = {
+    tsconfig: join(CWD, 'tsconfig.json'),
 }
 
 export const ENTRY = {
-    // multiTSX: getEntry(FILES.tsx),
-    less: glob.sync(join(CWD, `./${entryDirName}/**/*.less`)) || [],
+    less: glob.sync(join(CWD, `./${ENTRY_DIR_NAME}/**/*.less`)) || [],
+    UI_INDEX,
+    tsx: glob.sync(join(CWD, `./${ENTRY_DIR_NAME}/**/index.tsx`), {
+        ignore: [
+            // resolve('../components/**/*.stories.tsx'),
+            // resolve('../components/**/__tests__/*.test.tsx'),
+            UI_INDEX,
+            FUNC_INDEX,
+        ],
+    }),
     scripts: [
-        `${join(CWD, `./${entryDirName}`)}/**/*.[jt]s?(x)`,
-        `!${join(CWD, `./${entryDirName}`)}/**/__tests__/**/*.[jt]s?(x)`,
-        `!${join(CWD, `./${entryDirName}`)}/**/?(*.)+(spec|test).[tj]s?(x)`,
-        `!${join(CWD, `./${entryDirName}`)}/**/*.stories.tsx`,
+        `${join(CWD, `./${ENTRY_DIR_NAME}`)}/**/*.[jt]s?(x)`,
+        `!${join(CWD, `./${ENTRY_DIR_NAME}`)}/**/__tests__/**/*.[jt]s?(x)`,
+        `!${join(CWD, `./${ENTRY_DIR_NAME}`)}/**/?(*.)+(spec|test).[tj]s?(x)`,
+        `!${join(CWD, `./${ENTRY_DIR_NAME}`)}/**/*.stories.tsx`,
     ],
+    dirPath: ENTRY_DIR_PATH,
 }
 
 export const OUTPUT = {

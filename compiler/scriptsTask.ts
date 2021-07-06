@@ -2,18 +2,17 @@ import { src, dest, series, parallel } from 'gulp'
 import babel from 'gulp-babel'
 import { exec } from 'child_process'
 import through2 from 'through2'
-import { getBabelConfig } from '../config/getBabelConfig'
-import { OUTPUT, ENTRY, FRAME } from '../utils/const'
+import { getBabelConfig } from '../config/babel.config'
+import { OUTPUT, ENTRY } from '../utils/const'
 import { genEntry } from '../utils/fs'
-import { Frame, ModuleType } from '../utils/types'
-import { log } from '../utils/logger'
+import { ModuleType } from '../utils/types'
 
 function cssInjection(content) {
     return content.replace(/\.less/g, '.css')
 }
 
-function compile(babelEnv: ModuleType, frame: Frame, destDir: string) {
-    const babelConfig = getBabelConfig(babelEnv, frame)
+function compile(babelEnv: ModuleType, destDir: string) {
+    const babelConfig = getBabelConfig(babelEnv)
 
     // console.log('scripts', ENTRY.scripts)
     // console.log('babelConfig :>> ', babelConfig)
@@ -32,25 +31,13 @@ function compile(babelEnv: ModuleType, frame: Frame, destDir: string) {
 }
 
 function compileESM() {
-    if (!FRAME.list.includes(FRAME.name as any)) {
-        log.error({
-            text: `compileESM, expect oneOf ${FRAME.list}, but got ${FRAME.name}`,
-        })
-        process.exit(1)
-    }
-    return compile('esm', FRAME.name as Frame, OUTPUT.es)
+    return compile('esm', OUTPUT.es)
 }
 function compileCJS() {
-    if (!FRAME.list.includes(FRAME.name as any)) {
-        log.error({
-            text: `compileCJS, expect oneOf ${FRAME.list}, but got ${FRAME.name}`,
-        })
-        process.exit(1)
-    }
-    return compile('cjs', FRAME.name as Frame, OUTPUT.cjs)
+    return compile('cjs', OUTPUT.cjs)
 }
 
-async function genTypes() {
+export async function genTypes() {
     exec('npx tsc -p tsconfig.types.json --declarationDir es', (error) => {
         if (error) {
             // console.error('genEsTypes error :>> ', error)

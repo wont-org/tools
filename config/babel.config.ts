@@ -1,7 +1,8 @@
 import { ARGV, UI_LIB } from '../utils/const'
 import { Frame, ModuleType } from '../utils/types'
 
-export const getBabelConfig = (module: ModuleType, frame: Frame) => {
+export const getBabelConfig = (module: ModuleType) => {
+    const frame = process.argv[3] as Frame
     const deps = (ARGV['-d'] || ARGV['--depends'] || []) as string[]
     let useAntd = false
     for (const dep of deps) {
@@ -17,7 +18,7 @@ export const getBabelConfig = (module: ModuleType, frame: Frame) => {
         {
             libraryName: 'ant-design-vue',
             libraryDirectory: module === 'esm' ? 'es' : 'lib',
-            style: 'css', // or 'css'
+            style: 'less', // or 'css'
         },
     ]
     // 内置所有预设，比如?. ??，无需再装 @babel/plugin-proposal-optional-chaining

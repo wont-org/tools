@@ -21,6 +21,7 @@ program
         '-d --depends [depends...]',
         'if your library base on ant-design-vue'
     )
+    .option('-r --rollup', 'if your wanna compile library with rollup')
     .action((frame, opts) => {
         if (!FRAME.list.includes(frame)) {
             log.error({
@@ -29,7 +30,7 @@ program
             process.exit(1)
         }
         // check input if not support
-        const { depends = [] } = opts
+        const { depends = [], rollup } = opts
         for (const dep of depends) {
             if (dep && !UI_LIB.includes(dep)) {
                 log.error({
@@ -37,6 +38,10 @@ program
                 })
                 process.exit(1)
             }
+        }
+        if (rollup) {
+            runTask('compileUiComponentsWithRollup')
+            return
         }
         runTask('compileUiComponents')
     })
