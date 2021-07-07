@@ -21,7 +21,10 @@ program
         '-d --depends [depends...]',
         'if your library base on ant-design-vue'
     )
-    .option('-r --rollup', 'if your wanna compile library with rollup')
+    .option(
+        '-r --rollup',
+        'if your wanna compile library with rollup, this option not support with -d xxx'
+    )
     .action((frame, opts) => {
         if (!FRAME.list.includes(frame)) {
             log.error({
