@@ -2,10 +2,12 @@
 
 import { program } from 'commander'
 import { version as pkgVersion, name } from './package.json'
+
 import { FRAME, UI_LIB } from './utils/const'
 import { log } from './utils/logger'
-
 import { runTask } from './utils/runTask'
+import { Frame } from './utils/types'
+
 import './compiler'
 
 program.version(`${name} ${pkgVersion}`)
@@ -25,7 +27,7 @@ program
         '-r --rollup',
         'if your wanna compile library with rollup, this option not support with -d xxx'
     )
-    .action((frame, opts) => {
+    .action(async (frame: Frame, opts) => {
         if (!FRAME.list.includes(frame)) {
             log.error({
                 text: `Expect oneOf ${FRAME.list}, but got ${frame}`,
@@ -41,6 +43,10 @@ program
                 })
                 process.exit(1)
             }
+        }
+        if (frame === 'utils') {
+            runTask('compileUtilsWithRollup')
+            return
         }
         if (rollup) {
             runTask('compileUiComponentsWithRollup')

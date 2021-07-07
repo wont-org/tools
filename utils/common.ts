@@ -2,7 +2,7 @@
  * @desc 获取node指令 -x --xx 后面紧跟的参数
  * @returns {object}
  */
-export const parseArgvOpt = (): Record<string, unknown> => {
+export const parseArgvOpt = (): Record<string, string[]> => {
     const { argv = [] } = process
     const reg = /^(-){1,2}[A-Za-z]+$/
     const result = {}
@@ -24,5 +24,6 @@ export const parseArgvOpt = (): Record<string, unknown> => {
             result[tag] = argval
         }
     }
+    console.log('parseArgvOpt :>> ', result)
     return result
 }

@@ -17,7 +17,7 @@ async function rollupCompile(config) {
 
 export async function rollupCompileAll() {
     const rollupConfig = getRollupConfig()
-    Promise.all(
+    return Promise.all(
         rollupConfig.map(async (config) => {
             await rollupCompile(config)
         })

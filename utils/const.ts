@@ -15,8 +15,10 @@ export const ARGV = parseArgvOpt()
 export const CWD = process.cwd()
 
 // compile library root dir name
-const ENTRY_DIR_NAME = ARGV['-e'] || ARGV['--entry'] || 'components'
+export const ENTRY_DIR_NAME =
+    (ARGV['-e'] || ARGV['--entry'] || [])[0] || 'components'
 const ENTRY_DIR_PATH = join(CWD, `./${ENTRY_DIR_NAME}`)
+console.log('ENTRY_DIR_NAME :>> ', ENTRY_DIR_NAME)
 
 if (!existsSync(ENTRY_DIR_PATH)) {
     log.error({
@@ -25,10 +27,14 @@ if (!existsSync(ENTRY_DIR_PATH)) {
     process.exit(1)
 }
 
-const UI_INDEX = join(CWD, `./${ENTRY_DIR_NAME}/index.tsx`)
-const FUNC_INDEX = join(CWD, `./${ENTRY_DIR_NAME}/index.ts`)
+log.info({
+    text: `Compile entry dirname is ${ENTRY_DIR_NAME}`,
+})
 
-export const DESC = '// 此文件是脚本自动生成，请勿在此修改 \n\n'
+export const SUFFIX = FRAME.name === 'utils' ? 'ts' : 'tsx'
+const INDEX = join(CWD, `./${ENTRY_DIR_NAME}/index.${SUFFIX}`)
+
+export const DESC = '// 此文件是脚本自动生成，请勿在此修改\n\n'
 
 export const CONFIG = {
     tsconfig: join(CWD, 'tsconfig.json'),
@@ -36,14 +42,16 @@ export const CONFIG = {
 
 export const ENTRY = {
     less: glob.sync(join(CWD, `./${ENTRY_DIR_NAME}/**/*.less`)) || [],
-    UI_INDEX,
+    INDEX,
     tsx: glob.sync(join(CWD, `./${ENTRY_DIR_NAME}/**/index.tsx`), {
         ignore: [
             // resolve('../components/**/*.stories.tsx'),
             // resolve('../components/**/__tests__/*.test.tsx'),
-            UI_INDEX,
-            FUNC_INDEX,
+            INDEX,
         ],
+    }),
+    ts: glob.sync(join(CWD, `./${ENTRY_DIR_NAME}/!(_)*/!(_)*.ts`), {
+        ignore: [INDEX],
     }),
     scripts: [
         `${join(CWD, `./${ENTRY_DIR_NAME}`)}/**/*.[jt]s?(x)`,
@@ -53,7 +61,6 @@ export const ENTRY = {
     ],
     dirPath: ENTRY_DIR_PATH,
 }
-
 export const OUTPUT = {
     es: join(CWD, `./es`),
     cjs: join(CWD, `./lib`),

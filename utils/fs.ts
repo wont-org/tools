@@ -19,7 +19,6 @@ export function getDirName(pathStr: string) {
 }
 
 export async function genEntry() {
-    // console.log('genEntry :>> ', tsxFiles)
     let exportVars = ''
     let exportScripts = ''
     ENTRY.tsx.forEach((pathStr) => {
@@ -29,5 +28,17 @@ export async function genEntry() {
         exportVars += `    ${Name},\n`
     })
     exportScripts += `\nexport {\n${exportVars}}\n`
-    writeFileSync(ENTRY.UI_INDEX, DESC + exportScripts)
+    writeFileSync(ENTRY.INDEX, DESC + exportScripts)
+}
+
+export async function genUtilsEntry() {
+    let exportVars = ''
+    let exportScripts = ''
+    ENTRY.ts.forEach((pathStr) => {
+        const name = getDirName(pathStr)
+        exportScripts += `import { ${name} } from './${name}/${name}'\n`
+        exportVars += `    ${name},\n`
+    })
+    exportScripts += `\nexport {\n${exportVars}}\n`
+    writeFileSync(ENTRY.INDEX, DESC + exportScripts)
 }
