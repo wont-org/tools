@@ -6,7 +6,7 @@ import { log } from './logger'
 
 export const FRAME = {
     name: process.argv[3],
-    list: ['vue2', 'vue3', 'react16', 'func'] as const,
+    list: ['vue2', 'vue3', 'react16', 'utils'] as const,
 }
 
 export const UI_LIB = ['antd']

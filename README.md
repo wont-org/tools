@@ -10,17 +10,23 @@ Tools to Build library for vue2、vue3、react&lt;17、utils，using gulp、babe
 npm i @wont/tools -D
 ```
 
-## compile ui library
+## compile library
 
 ```bash
-wont-tools compile <frame> [options]
+wont-tools compile <frame> [option]
 wont-tools compile vue3 -d antd
 wont-tools compile react16 -r
 ```
 
+| frame   | -d/--depends | antd | -e/--entry dirname | -r/--rollup |
+| ------- | :----------- | ---- | ------------------ | ----------- |
+| vue     | ✅           | ✅   | ✅                 | ✅          |
+| react16 | ✅           | ❌   | ✅                 | ✅          |
+| utils   | ❌           | ❌   | ✅                 | ❌          |
+
 ### frame 必填
 
-frame 可选为 'vue2', 'vue3', 'react16', 'func', 目前仅支持 vue3, react16
+frame 可选为 'vue2', 'vue3', 'react16', 'utils', 目前仅支持 vue3, react16
 
 ### options 可选项
 
@@ -58,7 +64,7 @@ wont-tools compile vue3 -r
 wont-tools compile vue3 --rollup
 ```
 
-# test case
+# Test case
 
 [@wont/react-ui](https://github.com/wont-org/react-ui)
 
@@ -68,7 +74,7 @@ wont-tools compile vue3 --rollup
 -   [ ] vue2 ui library, is it still necessary?
 -   [x] react<17 ui library
 -   [ ] rollup compile, less files output plugin
--   [ ] func ui library
+-   [ ] utils ui library
 -   [ ] npm version command
 -   [ ] tag command
 -   [ ] lint command
