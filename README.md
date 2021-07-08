@@ -66,7 +66,7 @@ wont-tools compile vue3 --rollup
 
 # Test case
 
-[@wont/react-ui](https://github.com/wont-org/react-ui)
+[@wont/react-ui](https://github.com/wont-org/react-ui/tree/test/tools)
 
 # TODO
 
