@@ -2,7 +2,7 @@ import chalk from 'chalk'
 
 export const log = {
     info: ({ logType = 'Info:', text }) => {
-        console.log(`\n${chalk.yellow.bold(logType)} ${chalk.yellow(text)}`)
+        console.log(`\n${chalk.blue.bold(logType)} ${chalk.gray(text)}`)
     },
     ok: ({ logType = 'Success:', text }) => {
         console.log(`\n${chalk.green.bold(logType)} ${chalk.cyan(text)}`)

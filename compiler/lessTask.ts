@@ -1,4 +1,4 @@
-import { src, dest, series, parallel } from 'gulp'
+import { src, dest } from 'gulp'
 import less from 'gulp-less'
 import autoprefixer from 'gulp-autoprefixer'
 import cssnano from 'gulp-cssnano'
@@ -6,7 +6,7 @@ import through2 from 'through2'
 import { OUTPUT, ENTRY } from '../utils/const'
 import { getDirName, getFileName } from '../utils/fs'
 
-function copyLess() {
+export async function copyLess() {
     return src(ENTRY.less)
         .pipe(
             through2.obj(function (file, encoding, next) {
@@ -29,7 +29,7 @@ function copyLess() {
         .pipe(dest(OUTPUT.cjs))
 }
 
-function less2css() {
+export async function less2css() {
     return src(ENTRY.less)
         .pipe(less())
         .pipe(autoprefixer())
@@ -50,5 +50,3 @@ function less2css() {
         .pipe(dest(OUTPUT.es))
         .pipe(dest(OUTPUT.cjs))
 }
-
-export const compileLess = series(parallel(less2css, copyLess))

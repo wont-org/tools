@@ -1,24 +1,21 @@
 import { task, parallel, series } from 'gulp'
-import { compileLess } from './lessTask'
+import { less2css, copyLess } from './lessTask'
 import { genEntry, genUtilsEntry } from '../utils/fs'
-import { compileScripts, genTypes } from './scriptsTask'
+import { compileESM, compileCJS, genTypes } from './scriptsTask'
 import { clean } from './cleanTask'
 import { rollupCompileAll } from './scriptsRollup'
 
-const compileUiComponents = parallel(
+const compileLess = parallel(less2css, copyLess)
+const compileScripts = parallel(genEntry, compileESM, compileCJS, genTypes)
+
+const compileUiComponents = series(clean, parallel(compileLess, compileScripts))
+const compileUiComponentsWithRollup = series(
     clean,
-    compileLess,
-    compileScripts,
-    genTypes
+    parallel(compileLess, rollupCompileAll)
 )
-const compileUiComponentsWithRollup = parallel(
+const compileUtilsWithRollup = series(
     clean,
-    compileLess,
-    series(rollupCompileAll, genEntry)
-)
-const compileUtilsWithRollup = parallel(
-    clean,
-    series(genUtilsEntry, rollupCompileAll)
+    parallel(genUtilsEntry, rollupCompileAll)
 )
 
 task('compileUiComponents', compileUiComponents)

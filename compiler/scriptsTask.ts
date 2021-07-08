@@ -1,14 +1,11 @@
-import { CONFIG, OUTPUT, ENTRY } from './../utils/const'
-import { src, dest, series, parallel } from 'gulp'
+import { src, dest } from 'gulp'
 import babel from 'gulp-babel'
-import typescript from 'gulp-typescript'
 import { exec } from 'child_process'
 import through2 from 'through2'
-import { getBabelConfig } from '../config/babel.config'
 
-import { genEntry } from '../utils/fs'
+import { getBabelConfig } from '../config/babel.config'
 import { ModuleType } from '../utils/types'
-import { declareDts } from '../config/tsconfig'
+import { CONFIG, OUTPUT, ENTRY } from './../utils/const'
 
 function cssInjection(content) {
     return content.replace(/\.less/g, '.css')
@@ -19,12 +16,8 @@ function compile(babelEnv: ModuleType, destDir: string) {
 
     // console.log('scripts', ENTRY.scripts)
     // console.log('babelConfig :>> ', babelConfig)
-    const tsProject = typescript.createProject(
-        CONFIG.tsconfig,
-        declareDts(babelEnv)
-    )
+
     return src(ENTRY.scripts)
-        .pipe(tsProject())
         .pipe(babel(babelConfig))
         .pipe(
             through2.obj(function (file, encoding, next) {
@@ -37,16 +30,16 @@ function compile(babelEnv: ModuleType, destDir: string) {
         .pipe(dest(destDir))
 }
 
-function compileESM() {
+export function compileESM() {
     return compile('esm', OUTPUT.es)
 }
-function compileCJS() {
+export function compileCJS() {
     return compile('cjs', OUTPUT.cjs)
 }
 
 export async function genTypes() {
     exec(
-        'npx tsc -p tsconfig.json --declaration --emitDeclarationOnly --module esnext --declarationDir es',
+        `npx tsc -p ${CONFIG.tsconfig} --declaration --emitDeclarationOnly --module esnext --declarationDir es`,
         (error) => {
             if (error) {
                 // console.error('genEsTypes error :>> ', error)
@@ -55,7 +48,7 @@ export async function genTypes() {
         }
     )
     exec(
-        'npx tsc -p tsconfig.json --declaration --emitDeclarationOnly --module commonjs --declarationDir lib',
+        `npx tsc -p ${CONFIG.tsconfig} --declaration --emitDeclarationOnly --module commonjs --declarationDir lib`,
         (error) => {
             if (error) {
                 // console.error('genlibTypes error :>> ', error)
@@ -64,5 +57,3 @@ export async function genTypes() {
         }
     )
 }
-
-export const compileScripts = series(parallel(genEntry, compileESM, compileCJS))

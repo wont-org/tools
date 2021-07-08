@@ -1,4 +1,4 @@
-import { emit, task } from 'gulp'
+import { emit, task, on } from 'gulp'
 import { log } from './logger'
 
 export function getTimeDiff(hrtime: [number, number]) {
@@ -36,10 +36,14 @@ export function runTask(taskName) {
         emit('task_stop', metadata)
         emit('stop')
         metadata.hrDuration = process.hrtime(start)
-        const time = getTimeDiff(metadata.hrDuration)
 
-        log.ok({
-            text: `${taskName} used ${time}`,
+        on('stop', (taskInfo = {}) => {
+            const { name, branch } = taskInfo
+            if (!branch) {
+                log.ok({
+                    text: `${name} done`,
+                })
+            }
         })
     } catch (err) {
         err.task = metadata.task

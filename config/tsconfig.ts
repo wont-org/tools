@@ -7,6 +7,7 @@ export const declareDts = (babelEnv: ModuleType) => ({
     emitDeclarationOnly: true,
     declarationDir: babelEnv === 'esm' ? 'es' : 'lib',
     module: 'esnext',
+    // baseUrl: '.',
 })
 
 export const getTsconfig = (babelEnv: ModuleType) => {
