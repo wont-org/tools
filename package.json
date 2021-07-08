@@ -1,13 +1,15 @@
 {
     "name": "@wont/tools",
-    "version": "0.0.1-alpha.1",
+    "version": "0.0.1-alpha.2",
     "description": "Tools to Build library for vue2、vue3、react&lt;17、utils，using gulp、babel、rollup",
     "main": "lib/index.js",
-    "types": "typings/index.d.ts",
+    "types": "types/index.d.ts",
     "bin": {
         "wont-tools": "lib/index.js"
     },
-    "files": ["lib"],
+    "files": [
+        "lib"
+    ],
     "scripts": {
         "link": "npm run prepublishOnly && npm link",
         "prepublishOnly": "tsc",
@@ -25,11 +27,16 @@
         "build tools",
         "build library",
         "library",
+        "utils",
+        "gulp",
+        "rollup",
+        "babel",
+        "typescript",
         "react",
         "vue"
     ],
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/wont-org/tools/issues"
     },
