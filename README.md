@@ -74,7 +74,7 @@ wont-tools compile vue3 --rollup
 -   [ ] vue2 ui library, is it still necessary?
 -   [x] react<17 ui library
 -   [ ] rollup compile, less files output plugin
--   [ ] utils ui library
+-   [x] utils ui library
 -   [ ] npm version command
 -   [ ] tag command
 -   [ ] lint command
