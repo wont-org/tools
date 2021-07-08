@@ -7,9 +7,6 @@
     "bin": {
         "wont-tools": "lib/index.js"
     },
-    "files": [
-        "lib"
-    ],
     "scripts": {
         "link": "npm run prepublishOnly && npm link",
         "prepublishOnly": "tsc",
