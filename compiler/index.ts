@@ -21,7 +21,7 @@ const compileUiComponentsWithRollup = series(
 const compileUtilsWithRollup = series(
     clean,
     genUtilsEntry,
-    rollupCompileAll,
+    parallel(rollupCompileAll),
 )
 
 task('compileUiComponents', compileUiComponents)
