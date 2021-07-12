@@ -40,18 +40,18 @@ export function compileCJS() {
 export async function genTypes() {
     exec(
         `npx tsc -p ${CONFIG.tsconfig} --declaration --emitDeclarationOnly --module esnext --declarationDir es`,
-        (error) => {
+        (error, stdout, stderr) => {
             if (error) {
-                // console.error('genEsTypes error :>> ', error)
+                console.error('genEsTypes error :>> ', error, stdout, stderr)
                 process.exit(1)
             }
         }
     )
     exec(
         `npx tsc -p ${CONFIG.tsconfig} --declaration --emitDeclarationOnly --module commonjs --declarationDir lib`,
-        (error) => {
+        (error, stdout, stderr) => {
             if (error) {
-                // console.error('genlibTypes error :>> ', error)
+                console.error('genlibTypes error :>> ', error, stdout, stderr)
                 process.exit(1)
             }
         }
