@@ -46,7 +46,7 @@ export const getBabelConfig = (module: ModuleType) => {
         {
             libraryName: 'ant-design-vue',
             libraryDirectory: module === 'esm' ? 'es' : 'lib',
-            style: 'less', // or 'css'
+            style: 'css',
         },
     ]
     if (frame === 'vue3') {
