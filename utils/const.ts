@@ -43,7 +43,7 @@ export const CONFIG = {
 export const ENTRY = {
     less: glob.sync(join(CWD, `./${ENTRY_DIR_NAME}/**/*.less`)) || [],
     INDEX,
-    tsx: glob.sync(join(CWD, `./${ENTRY_DIR_NAME}/**/index.tsx`), {
+    tsx: glob.sync(join(CWD, `./${ENTRY_DIR_NAME}/!(_)*/index.tsx`), {
         ignore: [
             // resolve('../components/**/*.stories.tsx'),
             // resolve('../components/**/__tests__/*.test.tsx'),
