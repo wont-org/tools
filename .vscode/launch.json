@@ -3,18 +3,25 @@
     // 悬停以查看现有属性的描述。
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
-        {
+    "configurations": [{
             "type": "node",
             "request": "launch",
-            "name": "file",
+            "name": "ts-node file",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "args": [
-            ],
+            "args": [],
             "runtimeExecutable": "ts-node",
             "program": "${file}",
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "ts-node index",
+            "runtimeExecutable": "ts-node",
+            "skipFiles": ["<node_internals>/**"],
+            "program": "${workspaceFolder}/index.ts",
+            // "outFiles": ["${workspaceFolder}/**/*.js"]
         }
     ]
 }
