@@ -7,7 +7,7 @@ import typescript from '@rollup/plugin-typescript'
 import less from 'rollup-plugin-less'
 import { terser } from 'rollup-plugin-terser'
 import { ENTRY, OUTPUT, CONFIG, SUFFIX, ENTRY_DIR_NAME } from '../utils/const'
-import { getDirName } from '../utils/fs'
+import { getDirName, toPosixPath } from '../utils/fs'
 import { getBabelConfig } from '../config/babel.config'
 import { ModuleType } from '../utils/types'
 import { declareDts } from './tsconfig'
@@ -15,7 +15,10 @@ import { declareDts } from './tsconfig'
 const extensions = ['.ts', '.tsx', '.jsx', '.js', '.less', '.css']
 
 const external = [
+    // /node_modules/,
     'lodash',
+    'lodash-es',
+    'js-base64',
     '@ant-design/icons-vue',
     /ant-design-vue/,
     'react',
@@ -76,10 +79,13 @@ function genPlugins(opt: GenPluginsOpt) {
 
 function entryFileNames(params) {
     const { facadeModuleId = '' } = params
+    const fullPath = toPosixPath(facadeModuleId)
+    // console.log('facadeModuleId :>> ', facadeModuleId, params, fullPath, `${ENTRY_DIR_NAME}/index.${SUFFIX}`);
     if (
         facadeModuleId &&
-        facadeModuleId.indexOf(`${ENTRY_DIR_NAME}/index.${SUFFIX}`) !== -1
+        fullPath.indexOf(`${ENTRY_DIR_NAME}/index.${SUFFIX}`) !== -1
     ) {
+        // console.log('facadeModuleId 1111:>> ', facadeModuleId);
         return 'index.js'
     }
     return '[name]/index.js'

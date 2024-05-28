@@ -42,3 +42,12 @@ export async function genUtilsEntry() {
     exportScripts += `\nexport {\n${exportVars}}\n`
     writeFileSync(ENTRY.INDEX, DESC + exportScripts)
 }
+
+export const toPosixPath = (filePath: string) =>{
+    const isWindows = process.platform === 'win32';
+    if (isWindows) {
+        // 转换 Windows 路径为 POSIX 格式
+        return filePath.split(path.sep).join(path.posix.sep);
+    }
+    return filePath;
+}
