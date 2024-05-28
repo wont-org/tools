@@ -13,6 +13,7 @@
         "prettier": "prettier --write .",
         "eslint": "eslint . --ext .jsx,.js,.tsx,.ts",
         "eslint:fix": "eslint . --ext .jsx,.js,.tsx,.ts --fix",
+        "bump": "bumpp package.json -c -p -t --all -x \"pnpm run changelog\"",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -47,6 +48,7 @@
         "@commitlint/config-conventional": "^12.1.4",
         "@typescript-eslint/eslint-plugin": "^4.28.1",
         "@typescript-eslint/parser": "^4.28.1",
+        "bumpp": "^9.4.1",
         "chalk": "^4.1.1",
         "eslint": "^7.29.0",
         "eslint-config-ali": "^12.1.0",
