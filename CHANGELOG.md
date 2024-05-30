@@ -1,4 +1,13 @@
-## 0.0.1-beta.4 (2024-05-28)
+## [0.0.1-beta.5](https://github.com/wont-org/tools/compare/v0.0.1-beta.4...v0.0.1-beta.5) (2024-05-30)
+
+
+### Features
+
+* utils打包支持umd格式 ([45bc616](https://github.com/wont-org/tools/commit/45bc61601b2d22dc7301418c1eda5473dbf769e5))
+
+
+
+## [0.0.1-beta.4](https://github.com/wont-org/tools/compare/44411f2ff75122d87ed5afd405d7380be7336776...v0.0.1-beta.4) (2024-05-28)
 
 
 ### Bug Fixes
