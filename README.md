@@ -128,6 +128,9 @@ wont-tools compile utils -e src
 │   │   └── index.js
 │   ├── index.d.ts
 │   ├── index.js
+# umd
+├── dist
+│   ├── umd.min.js
 ```
 
 ## ui components
