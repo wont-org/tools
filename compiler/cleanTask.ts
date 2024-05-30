@@ -4,4 +4,5 @@ import { OUTPUT } from '../utils/const'
 export async function clean() {
     rimraf.sync(OUTPUT.es)
     rimraf.sync(OUTPUT.cjs)
+    rimraf.sync(OUTPUT.umd)
 }

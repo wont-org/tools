@@ -45,6 +45,38 @@ interface GenPluginsOpt {
 function genPlugins(opt: GenPluginsOpt) {
     const { useTerser = false, moduleType, useLess = true } = opt
     const babelConfig = getBabelConfig(moduleType)
+    if (opt.moduleType === 'umd') {
+        return [
+            json(),
+            resolvePlugin({
+                // moduleDirectories: [ENTRY.dirPath],
+                extensions,
+            }),
+            commonjs(),
+            typescript({
+                tsconfig: CONFIG.tsconfig,
+                declaration: false,
+                module: 'esnext',
+            }),
+            babel({
+                // presets: [
+                //     [
+                //         '@babel/preset-env',
+                //         {
+                //             modules: false,
+                //         },
+                //     ],
+                //     '@babel/preset-typescript',
+                // ],
+                // babelrc: false,
+                ...babelConfig,
+                babelHelpers: 'bundled',
+                exclude: 'node_modules/**',
+                extensions,
+            }),
+            terser(),
+        ]
+    }
     const plugins = [
         json(),
         resolvePlugin({
@@ -135,6 +167,17 @@ export const getRollupConfig = () => {
             external,
             plugins: genPlugins({
                 moduleType: 'cjs',
+            }),
+        },
+        {
+            input: namedInputs.index,
+            output: {
+                file: 'dist/umd.min.js',
+                format: 'umd',
+                name: 'wontUtils',
+            },
+            plugins: genPlugins({
+                moduleType: 'umd',
             }),
         },
     ]

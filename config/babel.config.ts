@@ -26,7 +26,7 @@ export const getBabelConfig = (module: ModuleType) => {
     if (frame === 'utils') {
         return {
             presets,
-            plugins,
+            plugins: module === 'umd' ? [] : plugins,
             babelrc: false,
         }
     }
