@@ -23,7 +23,7 @@ jobs:
 
 
       - name: install
-        run: npm ci
+        run: pnpm install
 
       - name: prepublishOnly
         run: npm run prepublishOnly
